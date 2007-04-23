@@ -66,13 +66,6 @@ local addon = CreateFrame"Frame"
 addon:RegisterEvent"PLAYER_LOGIN"
 
 addon:SetScript("OnEvent", function(self)
-	-- Hide the chatframe textures
-	for i = 1,7 do
-		for k,v in pairs(CHAT_FRAME_TEXTURES) do
-			G["ChatFrame"..i..v]:Hide()
-		end
-	end
-
 	local frame = CreateFrame("Button", "oPanel", UIParent)
 	frame:SetHeight(45)
 	frame:SetPoint("BOTTOM", UIParent, 0, -5)
@@ -113,4 +106,14 @@ addon:SetScript("OnEvent", function(self)
 	cf:SetPoint("BOTTOM", frame, 0, 8)
 	cf:SetPoint("RIGHT", frame, -8, 0)
 	cf:SetPoint("TOP", frame, 0, -6)
+
+	local dummy = function() end
+	-- Hide the chatframe textures
+	for i = 1,7 do
+		G["ChatFrame"..i].SetPoint = dummy
+		G["ChatFrame"..i].ClearAllPoints = dummy
+		for k,v in pairs(CHAT_FRAME_TEXTURES) do
+			G["ChatFrame"..i..v]:Hide()
+		end
+	end
 end)
