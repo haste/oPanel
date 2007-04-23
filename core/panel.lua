@@ -104,17 +104,18 @@ addon:SetScript("OnEvent", function(self)
 	fade:SetBlendMode"ADD"
 	fade:SetGradientAlpha("VERTICAL", .1, .1, .1, 0, .25, .25, .35, 1)
 
-	local cf = ChatFrame1
-	cf:SetWidth(550)
-	cf:ClearAllPoints()
-	cf:SetPoint("BOTTOM", frame, 0, 8)
+	for i=1,2 do
+		local cf = G["ChatFrame"..i]
+		cf:SetWidth(550)
+		cf:ClearAllPoints()
+		cf:SetPoint("BOTTOM", frame, 0, 8)
+		cf:SetPoint("TOP", frame, 0, -6)
+		FCF_SetLocked(cf, 1)
+	end
+
+	cf = ChatFrame1
 	cf:SetPoint("LEFT", frame, 8, 0)
-	cf:SetPoint("TOP", frame, 0, -6)
 
 	cf = ChatFrame2
-	cf:SetWidth(550)
-	cf:ClearAllPoints()
-	cf:SetPoint("BOTTOM", frame, 0, 8)
 	cf:SetPoint("RIGHT", frame, -8, 0)
-	cf:SetPoint("TOP", frame, 0, -6)
 end)
