@@ -93,7 +93,7 @@ addon:SetScript("OnEvent", function(self)
 	frame:SetFrameStrata"BACKGROUND"
 
 	frame:RegisterForClicks"LeftButtonUp"
-	frame:SetScript("OnClick", function(self) self:SetScript("OnUpdate", onUpdate) end)
+	frame:SetScript("OnDoubleClick", function(self) self:SetScript("OnUpdate", onUpdate) end)
 
 	local fade = frame:CreateTexture(nil, "BORDER")
 	fade:SetTexture"Interface\\ChatFrame\\ChatFrameBackground"
