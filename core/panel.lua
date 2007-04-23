@@ -73,6 +73,10 @@ addon:SetScript("OnEvent", function(self)
 		end
 	end
 
+	for k in pairs(CHAT_FRAME_TEXTURES) do
+		CHAT_FRAME_TEXTURES[k] = nil
+	end
+
 	local frame = CreateFrame("Button", "oPanel", UIParent)
 	frame:SetHeight(45)
 	frame:SetPoint("BOTTOM", UIParent, 0, -5)
