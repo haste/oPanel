@@ -92,7 +92,6 @@ addon:SetScript("OnEvent", function(self)
 	frame:SetScript("OnClick", function(self) self:SetScript("OnUpdate", onUpdate) end)
 
 	local fade = frame:CreateTexture(nil, "BORDER")
-	fade:SetHeight(20)
 	fade:SetTexture"Interface\\ChatFrame\\ChatFrameBackground"
 	fade:SetPoint("TOP", frame, 0, -4)
 	fade:SetPoint("LEFT", frame, 4, 0)
