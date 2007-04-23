@@ -113,6 +113,7 @@ addon:SetScript("OnEvent", function(self)
 		FCF_SetLocked(cf, 1)
 	end
 
+	local cf
 	cf = ChatFrame1
 	cf:SetPoint("LEFT", frame, 8, 0)
 
