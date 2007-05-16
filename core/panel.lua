@@ -78,7 +78,7 @@ addon:SetScript("OnEvent", function(self)
 	end
 
 	local frame = CreateFrame("Button", "oPanel", UIParent)
-	frame:SetHeight(45)
+	frame:SetHeight(min)
 	frame:SetPoint("BOTTOM", UIParent, 0, -5)
 	frame:SetPoint("LEFT", UIParent, -5, 0)
 	frame:SetPoint("RIGHT", UIParent, 5, 0)
@@ -106,10 +106,12 @@ addon:SetScript("OnEvent", function(self)
 
 	for i=1,2 do
 		local cf = G["ChatFrame"..i]
+
 		cf:SetWidth(550)
 		cf:ClearAllPoints()
 		cf:SetPoint("BOTTOM", frame, 0, 8)
 		cf:SetPoint("TOP", frame, 0, -6)
+		
 		FCF_SetLocked(cf, 1)
 	end
 
