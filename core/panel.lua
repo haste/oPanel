@@ -121,4 +121,12 @@ addon:SetScript("OnEvent", function(self)
 
 	cf = ChatFrame2
 	cf:SetPoint("RIGHT", frame, -8, 0)
+
+	WorldFrame:SetUserPlaced(true)
+	WorldFrame:SetHeight(1)
+	WorldFrame:SetWidth(9999)
+
+	WorldFrame:ClearAllPoints()
+	WorldFrame:SetPoint"TOP"
+	WorldFrame:SetPoint("BOTTOM", oPanel, "TOP", 0, -3)
 end)
