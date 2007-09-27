@@ -1,4 +1,2 @@
 ## Interface: 20003
-## OptionalDeps: Dongle
-Dongle.lua
 core\panel.lua

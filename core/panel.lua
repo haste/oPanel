@@ -61,7 +61,6 @@ local onUpdate = function(self)
 end
 
 -- za warudo!
---local addon = DongleStub"Dongle-1.0":New"oPanel"
 local addon = CreateFrame"Frame"
 addon:RegisterEvent"PLAYER_LOGIN"
 
