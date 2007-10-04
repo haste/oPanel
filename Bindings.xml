@@ -1,0 +1,5 @@
+<Bindings>
+	<Binding name="OPANEL_TOGGLE" description="Toggle" header="OPANEL">
+		oPanel:SetScript("OnUpdate", oPanel.OnUpdate)
+	</Binding>
+</Bindings>
