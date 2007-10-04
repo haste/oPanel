@@ -61,7 +61,7 @@ local onUpdate = function(self)
 end
 
 -- za warudo!
-local addon = CreateFrame"Frame"
+local addon = CreateFrame("Button", "oPanel", UIParent)
 addon:RegisterEvent"PLAYER_LOGIN"
 
 addon:SetScript("OnEvent", function(self)
@@ -76,7 +76,7 @@ addon:SetScript("OnEvent", function(self)
 		CHAT_FRAME_TEXTURES[k] = nil
 	end
 
-	local frame = CreateFrame("Button", "oPanel", UIParent)
+	local frame = self
 	frame:SetHeight(min)
 	frame:SetPoint("BOTTOM", UIParent, 0, -5)
 	frame:SetPoint("LEFT", UIParent, -5, 0)
@@ -92,7 +92,8 @@ addon:SetScript("OnEvent", function(self)
 	frame:SetFrameStrata"BACKGROUND"
 
 	frame:RegisterForClicks"LeftButtonUp"
-	frame:SetScript("OnDoubleClick", function(self) self:SetScript("OnUpdate", onUpdate) end)
+	frame.OnUpdate = function(self) self:SetScript("OnUpdate", onUpdate) end
+	frame:SetScript("OnDoubleClick", self.OnUpdate)
 
 	local fade = frame:CreateTexture(nil, "BORDER")
 	fade:SetTexture"Interface\\ChatFrame\\ChatFrameBackground"
@@ -121,7 +122,9 @@ addon:SetScript("OnEvent", function(self)
 	cf = ChatFrame2
 	cf:SetPoint("RIGHT", frame, -8, 0)
 
+	-- Anchor the woldframe to oPanel.
 	WorldFrame:SetUserPlaced(true)
+	-- This is a slight hack to get it working, it was needed pre-2.2 at least.
 	WorldFrame:SetHeight(1)
 	WorldFrame:SetWidth(9999)
 

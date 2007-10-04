@@ -1,2 +1,3 @@
-## Interface: 20003
+## Interface: 20200
+core\bindings.lua
 core\panel.lua
