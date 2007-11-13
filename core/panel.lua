@@ -79,8 +79,8 @@ addon:SetScript("OnEvent", function(self)
 	local frame = self
 	frame:SetHeight(min)
 	frame:SetPoint("BOTTOM", UIParent, 0, -5)
-	frame:SetPoint("LEFT", UIParent, -5, 0)
-	frame:SetPoint("RIGHT", UIParent, 5, 0)
+	frame:SetPoint("LEFT", UIParent, -25, 0)
+	frame:SetPoint("RIGHT", UIParent, 25, 0)
 
 	frame:SetBackdrop({
 		bgFile = "Interface\\ChatFrame\\ChatFrameBackground", tile = true, tileSize = 16,
@@ -117,10 +117,10 @@ addon:SetScript("OnEvent", function(self)
 
 	local cf
 	cf = ChatFrame1
-	cf:SetPoint("LEFT", frame, 8, 0)
+	cf:SetPoint("LEFT", frame, 28, 0)
 
 	cf = ChatFrame2
-	cf:SetPoint("RIGHT", frame, -8, 0)
+	cf:SetPoint("RIGHT", frame, -28, 0)
 
 	-- Anchor the woldframe to oPanel.
 	WorldFrame:SetUserPlaced(true)
