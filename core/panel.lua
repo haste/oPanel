@@ -122,10 +122,8 @@ addon:SetScript("OnEvent", function(self)
 	cf = ChatFrame2
 	cf:SetPoint("RIGHT", frame, -28, 0)
 
-	-- Anchor the woldframe to oPanel.
-	-- This is a slight hack to get it working, it was needed pre-2.2 at least.
-	WorldFrame:SetHeight(1)
-	WorldFrame:SetWidth(9999)
+	WorldFrame:SetHeight(GetScreenHeight())
+	WorldFrame:SetWidth(GetScreenWidth())
 
 	WorldFrame:ClearAllPoints()
 	WorldFrame:SetPoint"TOP"
