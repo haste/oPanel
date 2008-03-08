@@ -63,46 +63,56 @@ end
 -- za warudo!
 local addon = CreateFrame("Button", "oPanel", UIParent)
 addon:RegisterEvent"PLAYER_LOGIN"
+addon:RegisterEvent"UPDATE_FLOATING_CHAT_WINDOWS"
 
 addon:SetScript("OnEvent", function(self)
-	-- Hide the chatframe textures
-	for i = 1,7 do
-		for k,v in pairs(CHAT_FRAME_TEXTURES) do
-			G["ChatFrame"..i..v]:Hide()
+	if(event == "PLAYER_LOGIN") then
+		-- Hide the chatframe textures
+		for i = 1,7 do
+			for k,v in pairs(CHAT_FRAME_TEXTURES) do
+				G["ChatFrame"..i..v]:Hide()
+			end
 		end
+
+		for k in pairs(CHAT_FRAME_TEXTURES) do
+			CHAT_FRAME_TEXTURES[k] = nil
+		end
+
+		local frame = self
+		frame:SetHeight(min)
+		frame:SetPoint("BOTTOM", UIParent, 0, -5)
+		frame:SetPoint("LEFT", UIParent, -25, 0)
+		frame:SetPoint("RIGHT", UIParent, 25, 0)
+
+		frame:SetBackdrop({
+			bgFile = "Interface\\ChatFrame\\ChatFrameBackground", tile = true, tileSize = 16,
+			edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border", edgeSize = 16,
+			insets = {left = 4, right = 4, top = 4, bottom = 4},
+		})
+		frame:SetBackdropColor(0, 0, 0)
+		frame:SetBackdropBorderColor(0, 0, 0)
+		frame:SetFrameStrata"BACKGROUND"
+
+		frame:RegisterForClicks"LeftButtonUp"
+		frame.OnUpdate = function(self) self:SetScript("OnUpdate", onUpdate) end
+		frame:SetScript("OnDoubleClick", self.OnUpdate)
+
+		local fade = frame:CreateTexture(nil, "BORDER")
+		fade:SetTexture"Interface\\ChatFrame\\ChatFrameBackground"
+		fade:SetPoint("TOP", frame, 0, -4)
+		fade:SetPoint("LEFT", frame, 4, 0)
+		fade:SetPoint("RIGHT", frame, -4, 0)
+		fade:SetPoint("BOTTOM", frame, 0, -25)
+		fade:SetBlendMode"ADD"
+		fade:SetGradientAlpha("VERTICAL", .1, .1, .1, 0, .25, .25, .35, 1)
+
+		WorldFrame:SetHeight(GetScreenHeight())
+		WorldFrame:SetWidth(GetScreenWidth())
+
+		WorldFrame:ClearAllPoints()
+		WorldFrame:SetPoint"TOP"
+		WorldFrame:SetPoint("BOTTOM", oPanel, "TOP", 0, -3)
 	end
-
-	for k in pairs(CHAT_FRAME_TEXTURES) do
-		CHAT_FRAME_TEXTURES[k] = nil
-	end
-
-	local frame = self
-	frame:SetHeight(min)
-	frame:SetPoint("BOTTOM", UIParent, 0, -5)
-	frame:SetPoint("LEFT", UIParent, -25, 0)
-	frame:SetPoint("RIGHT", UIParent, 25, 0)
-
-	frame:SetBackdrop({
-		bgFile = "Interface\\ChatFrame\\ChatFrameBackground", tile = true, tileSize = 16,
-		edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border", edgeSize = 16,
-		insets = {left = 4, right = 4, top = 4, bottom = 4},
-	})
-	frame:SetBackdropColor(0, 0, 0)
-	frame:SetBackdropBorderColor(0, 0, 0)
-	frame:SetFrameStrata"BACKGROUND"
-
-	frame:RegisterForClicks"LeftButtonUp"
-	frame.OnUpdate = function(self) self:SetScript("OnUpdate", onUpdate) end
-	frame:SetScript("OnDoubleClick", self.OnUpdate)
-
-	local fade = frame:CreateTexture(nil, "BORDER")
-	fade:SetTexture"Interface\\ChatFrame\\ChatFrameBackground"
-	fade:SetPoint("TOP", frame, 0, -4)
-	fade:SetPoint("LEFT", frame, 4, 0)
-	fade:SetPoint("RIGHT", frame, -4, 0)
-	fade:SetPoint("BOTTOM", frame, 0, -25)
-	fade:SetBlendMode"ADD"
-	fade:SetGradientAlpha("VERTICAL", .1, .1, .1, 0, .25, .25, .35, 1)
 
 	for i=1,2 do
 		local cf = G["ChatFrame"..i]
@@ -111,7 +121,7 @@ addon:SetScript("OnEvent", function(self)
 		cf:ClearAllPoints()
 		cf:SetPoint("BOTTOM", frame, 0, 8)
 		cf:SetPoint("TOP", frame, 0, -6)
-		
+
 		FCF_SetLocked(cf, 1)
 	end
 
@@ -121,11 +131,4 @@ addon:SetScript("OnEvent", function(self)
 
 	cf = ChatFrame2
 	cf:SetPoint("RIGHT", frame, -28, 0)
-
-	WorldFrame:SetHeight(GetScreenHeight())
-	WorldFrame:SetWidth(GetScreenWidth())
-
-	WorldFrame:ClearAllPoints()
-	WorldFrame:SetPoint"TOP"
-	WorldFrame:SetPoint("BOTTOM", oPanel, "TOP", 0, -3)
 end)
