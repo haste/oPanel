@@ -122,8 +122,9 @@ addon:SetScript("OnEvent", function(self)
 	cf = ChatFrame2
 	cf:SetPoint("RIGHT", frame, -28, 0)
 
-	WorldFrame:SetHeight(GetScreenHeight())
-	WorldFrame:SetWidth(GetScreenWidth())
+	WorldFrame:SetUserPlaced(false)
+	WorldFrame:SetHeight(GetScreenHeight()*GetCVar"UIScale")
+	WorldFrame:SetWidth(GetScreenWidth()*GetCVar"UIScale")
 
 	WorldFrame:ClearAllPoints()
 	WorldFrame:SetPoint"TOP"
