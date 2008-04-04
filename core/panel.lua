@@ -132,5 +132,3 @@ addon:SetScript("OnEvent", function(self)
 	cf = ChatFrame2
 	cf:SetPoint("RIGHT", frame, -28, 0)
 end)
-
-FCF_ValidateChatFramePosition = function() end
