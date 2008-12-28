@@ -44,7 +44,7 @@ local modifier = 1/steps
 
 -- this is... frame madness!
 local hc = 0
-local min, max, temp = 45, 180
+local min, max, temp = 46, 180
 
 local onUpdate = function(self)
 	hc = hc + 1
@@ -123,8 +123,8 @@ addon:SetScript("OnEvent", function(self)
 	cf:SetPoint("RIGHT", frame, -28, 0)
 
 	WorldFrame:SetUserPlaced(false)
-	WorldFrame:SetHeight(GetScreenHeight()*GetCVar"UIScale")
-	WorldFrame:SetWidth(GetScreenWidth()*GetCVar"UIScale")
+	WorldFrame:SetHeight(GetScreenHeight()*(GetCVar"UIScale" or 1))
+	WorldFrame:SetWidth(GetScreenWidth()*(GetCVar"UIScale" or 1))
 
 	WorldFrame:ClearAllPoints()
 	WorldFrame:SetPoint"TOP"
