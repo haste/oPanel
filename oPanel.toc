@@ -1,4 +1,4 @@
-## Interface: 20400
+## Interface: 30100
 ## Author: Haste
 ## X-eMail: troeks@gmail.com
 ## Notes: A faded black frame on the bottom of the screen, which hijacks the chatframes position and make them able to slide up and down!
