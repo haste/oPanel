@@ -46,6 +46,9 @@ local modifier = 1/steps
 local hc = 0
 local min, max, temp = 46, 182
 
+-- nil values, in my table!?
+local chatframes = {true, true, nil, true, nil, nil, nil}
+
 local onUpdate = function(self)
 	hc = hc + 1
 	if(hc == steps) then
@@ -104,14 +107,14 @@ addon:SetScript("OnEvent", function(self)
 	fade:SetBlendMode"ADD"
 	fade:SetGradientAlpha("VERTICAL", .1, .1, .1, 0, .25, .25, .35, 1)
 
-	for i=1,2 do
+	for i in next, chatframes do
 		local cf = G["ChatFrame"..i]
 
 		cf:SetWidth(550)
 		cf:ClearAllPoints()
 		cf:SetPoint("BOTTOM", frame, 0, 8)
 		cf:SetPoint("TOP", frame, 0, -6)
-		
+
 		FCF_SetLocked(cf, 1)
 	end
 
@@ -121,6 +124,11 @@ addon:SetScript("OnEvent", function(self)
 
 	cf = ChatFrame2
 	cf:SetPoint("RIGHT", frame, -28, 0)
+
+	cf = ChatFrame3
+	cf:SetPoint('CENTER', frame, -28, 0)
+
+	chatframes = nil
 
 	WorldFrame:SetUserPlaced(false)
 	WorldFrame:SetHeight(GetScreenHeight()*(GetCVar"UIScale" or 1))
