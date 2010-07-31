@@ -111,6 +111,7 @@ addon:SetScript("OnEvent", function(self)
 	for i in next, chatframes do
 		local cf = G["ChatFrame"..i]
 
+		cf:SetClampedToScreen(false)
 		cf:SetWidth(550)
 		cf:ClearAllPoints()
 		cf:SetPoint("BOTTOM", self, 0, 8)
