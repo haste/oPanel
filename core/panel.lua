@@ -67,6 +67,35 @@ end
 local addon = CreateFrame("Button", "oPanel", UIParent)
 addon:RegisterEvent"PLAYER_LOGIN"
 
+addon:SetHeight(min)
+addon:SetPoint("BOTTOM", UIParent, 0, -5)
+addon:SetPoint("LEFT", UIParent, -25, 0)
+addon:SetPoint("RIGHT", UIParent, 25, 0)
+
+addon:SetBackdrop({
+	bgFile = "Interface\\ChatFrame\\ChatFrameBackground", tile = true, tileSize = 16,
+	edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border", edgeSize = 16,
+	insets = {left = 4, right = 4, top = 4, bottom = 4},
+})
+addon:SetBackdropColor(0, 0, 0)
+addon:SetBackdropBorderColor(0, 0, 0)
+addon:SetFrameStrata"BACKGROUND"
+
+addon:RegisterForClicks"LeftButtonUp"
+addon.OnUpdate = function(self) self:SetScript("OnUpdate", onUpdate) end
+addon:SetScript("OnDoubleClick", addon.OnUpdate)
+
+local fade = addon:CreateTexture(nil, "BORDER")
+fade:SetTexture"Interface\\ChatFrame\\ChatFrameBackground"
+fade:SetPoint("TOP", addon, 0, -4)
+fade:SetPoint("LEFT", addon, 4, 0)
+fade:SetPoint("RIGHT", addon, -4, 0)
+fade:SetPoint("BOTTOM", addon, 0, -25)
+fade:SetBlendMode"ADD"
+fade:SetGradientAlpha("VERTICAL", .1, .1, .1, 0, .25, .25, .35, 1)
+
+addon.fade = fade
+
 addon:SetScript("OnEvent", function(self)
 	-- Hide the chatframe textures
 	for i = 1,7 do
@@ -79,54 +108,26 @@ addon:SetScript("OnEvent", function(self)
 		CHAT_FRAME_TEXTURES[k] = nil
 	end
 
-	local frame = self
-	frame:SetHeight(min)
-	frame:SetPoint("BOTTOM", UIParent, 0, -5)
-	frame:SetPoint("LEFT", UIParent, -25, 0)
-	frame:SetPoint("RIGHT", UIParent, 25, 0)
-
-	frame:SetBackdrop({
-		bgFile = "Interface\\ChatFrame\\ChatFrameBackground", tile = true, tileSize = 16,
-		edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border", edgeSize = 16,
-		insets = {left = 4, right = 4, top = 4, bottom = 4},
-	})
-	frame:SetBackdropColor(0, 0, 0)
-	frame:SetBackdropBorderColor(0, 0, 0)
-	frame:SetFrameStrata"BACKGROUND"
-
-	frame:RegisterForClicks"LeftButtonUp"
-	frame.OnUpdate = function(self) self:SetScript("OnUpdate", onUpdate) end
-	frame:SetScript("OnDoubleClick", self.OnUpdate)
-
-	local fade = frame:CreateTexture(nil, "BORDER")
-	fade:SetTexture"Interface\\ChatFrame\\ChatFrameBackground"
-	fade:SetPoint("TOP", frame, 0, -4)
-	fade:SetPoint("LEFT", frame, 4, 0)
-	fade:SetPoint("RIGHT", frame, -4, 0)
-	fade:SetPoint("BOTTOM", frame, 0, -25)
-	fade:SetBlendMode"ADD"
-	fade:SetGradientAlpha("VERTICAL", .1, .1, .1, 0, .25, .25, .35, 1)
-
 	for i in next, chatframes do
 		local cf = G["ChatFrame"..i]
 
 		cf:SetWidth(550)
 		cf:ClearAllPoints()
-		cf:SetPoint("BOTTOM", frame, 0, 8)
-		cf:SetPoint("TOP", frame, 0, -6)
+		cf:SetPoint("BOTTOM", self, 0, 8)
+		cf:SetPoint("TOP", self, 0, -6)
 
 		FCF_SetLocked(cf, 1)
 	end
 
 	local cf
 	cf = ChatFrame1
-	cf:SetPoint("LEFT", frame, 28, 0)
+	cf:SetPoint("LEFT", self, 28, 0)
 
 	cf = ChatFrame2
-	cf:SetPoint("RIGHT", frame, -28, 0)
+	cf:SetPoint("RIGHT", self, -28, 0)
 
 	cf = ChatFrame3
-	cf:SetPoint('CENTER', frame, -28, 0)
+	cf:SetPoint('CENTER', self, -28, 0)
 
 	chatframes = nil
 
