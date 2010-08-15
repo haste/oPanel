@@ -99,6 +99,8 @@ addon.fade = fade
 addon:SetScript("OnEvent", function(self)
 	-- Hide the chatframe textures
 	for i = 1,7 do
+		_G['ChatFrame' .. i]:SetClampedToScreen(false)
+
 		for k,v in pairs(CHAT_FRAME_TEXTURES) do
 			G["ChatFrame"..i..v]:Hide()
 		end
@@ -111,7 +113,6 @@ addon:SetScript("OnEvent", function(self)
 	for i in next, chatframes do
 		local cf = G["ChatFrame"..i]
 
-		cf:SetClampedToScreen(false)
 		cf:SetWidth(550)
 		cf:ClearAllPoints()
 		cf:SetPoint("BOTTOM", self, 0, 8)
