@@ -29,7 +29,6 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ---------------------------------------------------------------------------]]
 -- local madness
-local G = getfenv(0)
 local cos = math.cos
 local pi = math.pi
 
@@ -99,7 +98,7 @@ addon:SetScript("OnEvent", function(self)
 		_G['ChatFrame' .. i]:SetClampedToScreen(false)
 
 		for k,v in pairs(CHAT_FRAME_TEXTURES) do
-			G["ChatFrame"..i..v]:Hide()
+			_G["ChatFrame"..i..v]:Hide()
 		end
 	end
 
@@ -109,7 +108,7 @@ addon:SetScript("OnEvent", function(self)
 
 	for i, t in next, {true, true, nil, true, nil, nil, nil} do
 		if(t) then
-			local cf = G["ChatFrame"..i]
+			local cf = _G["ChatFrame"..i]
 
 			cf:SetWidth(550)
 			cf:ClearAllPoints()
