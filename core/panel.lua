@@ -130,10 +130,17 @@ addon:SetScript("OnEvent", function(self)
 		local s = GetCVar'uiscale' or 1
 		h, w = h * s, w * s
 	end
+
 	WorldFrame:SetHeight(h)
 	WorldFrame:SetWidth(w)
 
-	WorldFrame:ClearAllPoints()
-	WorldFrame:SetPoint"TOP"
-	WorldFrame:SetPoint("BOTTOM", oPanel, "TOP", 0, -3)
+	hooksecurefunc('SetUIVisibility', function(state)
+		WorldFrame:ClearAllPoints()
+		if(state) then
+			WorldFrame:SetPoint"TOP"
+			WorldFrame:SetPoint("BOTTOM", oPanel, "TOP", 0, -3)
+		else
+			WorldFrame:SetAllPoints()
+		end
+	end)
 end)
