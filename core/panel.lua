@@ -46,9 +46,6 @@ local modifier = 1/steps
 local hc = 0
 local min, max, temp = 46, 182
 
--- nil values, in my table!?
-local chatframes = {true, true, nil, true, nil, nil, nil}
-
 local onUpdate = function(self)
 	hc = hc + 1
 	if(hc == steps) then
@@ -110,32 +107,32 @@ addon:SetScript("OnEvent", function(self)
 		CHAT_FRAME_TEXTURES[k] = nil
 	end
 
-	for i in next, chatframes do
-		local cf = G["ChatFrame"..i]
+	for i, t in next, {true, true, nil, true, nil, nil, nil} do
+		if(t) then
+			local cf = G["ChatFrame"..i]
 
-		cf:SetWidth(550)
-		cf:ClearAllPoints()
-		cf:SetPoint("BOTTOM", self, 0, 8)
-		cf:SetPoint("TOP", self, 0, -6)
+			cf:SetWidth(550)
+			cf:ClearAllPoints()
+			cf:SetPoint("BOTTOM", self, 0, 8)
+			cf:SetPoint("TOP", self, 0, -6)
 
-		FCF_SetLocked(cf, 1)
+			FCF_SetLocked(cf, 1)
+		end
 	end
 
-	local cf
-	cf = ChatFrame1
-	cf:SetPoint("LEFT", self, 28, 0)
-
-	cf = ChatFrame2
-	cf:SetPoint("RIGHT", self, -28, 0)
-
-	cf = ChatFrame3
-	cf:SetPoint('CENTER', self, -28, 0)
-
-	chatframes = nil
+	ChatFrame1:SetPoint("LEFT", self, 28, 0)
+	ChatFrame2:SetPoint("RIGHT", self, -28, 0)
+	ChatFrame3:SetPoint('CENTER', self, -28, 0)
 
 	WorldFrame:SetUserPlaced(false)
-	WorldFrame:SetHeight(GetScreenHeight()*(GetCVar"UIScale" or 1))
-	WorldFrame:SetWidth(GetScreenWidth()*(GetCVar"UIScale" or 1))
+
+	local h, w = GetScreenHeight(), GetScreenWidth()
+	if(GetCVarBool'useUiScale') then
+		local s = GetCVar'uiscale' or 1
+		h, w = h * s, w * s
+	end
+	WorldFrame:SetHeight(h)
+	WorldFrame:SetWidth(w)
 
 	WorldFrame:ClearAllPoints()
 	WorldFrame:SetPoint"TOP"
