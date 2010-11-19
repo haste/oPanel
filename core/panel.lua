@@ -134,7 +134,7 @@ addon:SetScript("OnEvent", function(self)
 	WorldFrame:SetHeight(h)
 	WorldFrame:SetWidth(w)
 
-	hooksecurefunc('SetUIVisibility', function(state)
+	local stateToggle = function(state)
 		WorldFrame:ClearAllPoints()
 		if(state) then
 			WorldFrame:SetPoint"TOP"
@@ -142,5 +142,7 @@ addon:SetScript("OnEvent", function(self)
 		else
 			WorldFrame:SetAllPoints()
 		end
-	end)
+	end
+	hooksecurefunc('SetUIVisibility', stateToggle)
+	stateToggle(UIParent:IsShown())
 end)
