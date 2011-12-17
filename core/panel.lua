@@ -43,7 +43,7 @@ local modifier = 1/steps
 
 -- this is... frame madness!
 local hc = 0
-local min, max, temp = 46, 182
+local min, max, temp = 50, 180
 
 local onUpdate = function(self)
 	hc = hc + 1
