@@ -108,6 +108,7 @@ addon:SetScript("OnEvent", function(self)
 
 	for i, t in next, {true, true, nil, true, nil, nil, nil} do
 		if(t) then
+			UIPARENT_MANAGED_FRAME_POSITIONS["ChatFrame"..i] = nil
 			local cf = _G["ChatFrame"..i]
 
 			cf:SetWidth(550)
