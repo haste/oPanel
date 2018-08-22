@@ -110,11 +110,20 @@ addon:SetScript("OnEvent", function(self)
 		if(t) then
 			UIPARENT_MANAGED_FRAME_POSITIONS["ChatFrame"..i] = nil
 			local cf = _G["ChatFrame"..i]
-
 			cf:SetWidth(550)
 			cf:ClearAllPoints()
 			cf:SetPoint("BOTTOM", self, 0, 8)
 			cf:SetPoint("TOP", self, 0, -6)
+
+			local sbb = cf.ScrollToBottomButton
+			sbb:UnregisterAllEvents()
+			sbb:SetScript("OnShow", sbb.Hide)
+			sbb:Hide()
+
+			local sb = cf.ScrollBar
+			sb:UnregisterAllEvents()
+			sb:SetScript("OnShow", sb.Hide)
+			sb:Hide()
 
 			FCF_SetLocked(cf, 1)
 		end
